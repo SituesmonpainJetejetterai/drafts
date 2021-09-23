@@ -9,3 +9,9 @@ https://web.mit.edu/hackl/www/lab/turkshop/slides/regex-cheatsheet.pdf
 https ://oohlalal # I am useless lol
 
 https ///wsdfwef
+z
+zsvbzx
+xc
+bx
+cfbv
+sdfv
