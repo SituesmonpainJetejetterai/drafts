@@ -14,3 +14,4 @@ EOT
 grep -qx "$string" text.md || echo "$string" >> text.md
 # echo "$string"
 
+## Useless text

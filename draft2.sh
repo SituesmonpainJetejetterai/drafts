@@ -10,3 +10,5 @@ do
 done
 
 printf "\nUseless script now\n"
+
+## Useless text
