@@ -9,3 +9,4 @@ do
     fi
 done
 
+printf "\nUseless script now\n"
