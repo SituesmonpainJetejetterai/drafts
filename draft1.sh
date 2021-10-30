@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 printf "\nadding lines to ~/.bashrc to source the scripts\n\n"
 string=$(cat <<EOT
@@ -14,4 +14,3 @@ EOT
 grep -qx "$string" text.md || echo "$string" >> text.md
 # echo "$string"
 
-## Useless text
