@@ -16,6 +16,7 @@
 
 git_branch() {
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null | sed -e 's/* \(.*\)/(\1)/')
+    git pull origin "${branch}"
     printf "%s" "${branch}"
 }
 
