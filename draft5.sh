@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 finder() {
     find "$HOME" -name ".git" -prune -o -type d -print
