@@ -4,4 +4,4 @@ I am closed
 
 I think I should play a game if this doesn't work
 
-bye bye I am going away
+bye bye I will go away
