@@ -6,4 +6,4 @@ while True:
 
 print("Loser LMAO")
 
-# New stuff
+# worthless comment
