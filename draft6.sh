@@ -66,7 +66,7 @@ gacp() {
                 case "${option}" in
                     e)
                         total=$(merge_conflict_files | wc -l)
-                        if [ -z "${total}" ]; then
+                        if [ "${total}" -eq "0" ]; then
                             printf "\n%s\n" "Seems like there are no files with conflicts"
                         else
                             merge_conflict_files | nl -s:
@@ -95,6 +95,12 @@ gacp() {
                         if [ -z "${numbers}" ]; then
                             # If no argument specified, add all numbers
                             printf "\n%s\n" "Staging all files"
+                            still_to_be_committed
+                            printf "\n%s" "Do you want to see the diff of the changes?: "
+                            read -r sd
+                            if [ "${sd}" = "y" ] || [ "${sd}" = "Y" ]; then
+                                git diff .
+                            fi
                             git add -A
                         else
                             # Add specified numbers
@@ -105,6 +111,11 @@ gacp() {
                                 file=$(still_to_be_committed | sed -n "${f}p")
                                 # Print the name of the file while staging it
                                 printf "\n%s" "${file}"
+                                printf "\n%s" "do you want to see the diff of the changes?: "
+                                read -r sd
+                                if [ "${sd}" = "y" ] || [ "${sd}" = "y" ]; then
+                                    git diff "${file}"
+                                fi
                                 git add "${file}"
                             done
                         fi
@@ -155,12 +166,11 @@ gacp() {
                     ;;
             esac
         fi
-
     }
+
 get_changes
 do_changes
 push_changes
-
 
 }
 
