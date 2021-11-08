@@ -39,16 +39,16 @@ gacp() {
                     git pull --rebase
                     ;;
                 s)
-                    printf "\n%s" "Stashing changes and pulling from remote"
+                    printf "\n%s\n" "Stashing changes and pulling from remote"
                     git stash
                     git pull
                     git stash apply
                     ;;
                 "")
-                    printf "\n%s" "Continuing, hope you know what you've done"
+                    printf "\n%s\n" "Continuing, hope you know what you've done"
                     ;;
                 rs|*)
-                    printf "\n%s" "Stashing and rebasing"
+                    printf "\n%s\n" "Stashing and rebasing"
                     git pull --rebase --autostash
                     ;;
             esac
@@ -61,26 +61,29 @@ gacp() {
         while [ "${resume}" = "y" ] || [ "${resume}" = "Y" ];
         do
             printf "\n%s" "If you want to edit a file (in case of a conflict), press \"e\""
-            printf "\n%s" "If you want to start committing and pushing, press \"c\""
+            printf "\n%s\n" "If you want to start committing and pushing, press \"c\""
             if read -r option; then
                 case "${option}" in
                     e)
-                        merge_conflict_files | nl -s:
-
-                        printf "\n%s" "Press enter to edit each file one by one, in the order shown."
-                        printf "\n%s" "Otherwise, specify the number(s) of the file(s) you want to edit: "
-                        read -r numbers
-                        if [ -z "${numbers}" ]; then
-                            total=$(merge_conflict_files | wc -l)
-                            i=1
-                            while [ ${i} -le "${total}" ]; do
-                                go_edit "${i}"
-                                i=$(( i + 1 ))
-                            done
+                        total=$(merge_conflict_files | wc -l)
+                        if [ -z "${total}" ]; then
+                            printf "\n%s\n" "Seems like there are no files with conflicts"
                         else
-                            for n in ${numbers}; do
-                                go_edit "${n}"
-                            done
+                            merge_conflict_files | nl -s:
+                            printf "\n%s" "Press enter to edit each file one by one, in the order shown."
+                            printf "\n%s" "Otherwise, specify the number(s) of the file(s) you want to edit: "
+                            read -r numbers
+                            if [ -z "${numbers}" ]; then
+                                i=1
+                                while [ ${i} -le "${total}" ]; do
+                                    go_edit "${i}"
+                                    i=$(( i + 1 ))
+                                done
+                            else
+                                for n in ${numbers}; do
+                                    go_edit "${n}"
+                                done
+                            fi
                         fi
                         ;;
                     c)
