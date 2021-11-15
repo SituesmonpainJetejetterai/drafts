@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# The "help" function
 help(){
     printf "\n%s\n%s\n%s\n%s" \
         "Usage: " \
@@ -8,6 +9,7 @@ help(){
         "If the -b flag is set, it'll create a \".bak\" file"
 }
 
+# Declaring flags for getopts
 while getopts ":hb:o:" opt; do
     case ${opt} in
         h)
@@ -15,17 +17,24 @@ while getopts ":hb:o:" opt; do
             ;;
         b)
             printf "\n%s\n\n" "Copying into a \".bak\" file"
+            # Assign a variable with the value of "$OPTARG" to reuse it
             name="$OPTARG"
+            # Verbose version of cp
             cp -v "${name}" "${name}.bak"
             printf "\n"
+            # Check permissions of file
             ls -l "${name}.bak"
             ;;
         o)
             printf "\n%s\n\n" "Copying into a \".orig\" file"
+            # Assign a variable with the value of "$OPTARG" to reuse it
             name="$OPTARG"
+            # Verbose version of cp
             cp -v "${name}" "${name}.orig"
+            # Take away write permissions from everybody
             chmod a-w "${name}.orig"
             printf "\n"
+            # Checking permissions of file
             ls -l "${name}.orig"
             ;;
         *)
